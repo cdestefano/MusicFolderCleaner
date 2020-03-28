@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MusicFolderCleaner.Application</name>
+    </assembly>
+    <members>
+        <member name="T:MusicFolderCleaner.Application.Directory.Directory">
+            <inheritdoc cref="T:MusicFolderCleaner.Application.Directory.IDirectory"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.#ctor(MusicFolderCleaner.Application.Validation.IErrorLogger)">
+            <summary>
+            Creates a new instance of the <see cref="T:MusicFolderCleaner.Application.Directory.Directory"/> class.
+            </summary>
+            <param name="logger">The logger for potential issues.</param>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.GetFiles(System.String,System.String,System.IO.SearchOption)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectory.GetFiles(System.String,System.String,System.IO.SearchOption)"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.GetDirectories(System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectory.GetDirectories(System.String)"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.Exists(System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectory.Exists(System.String)"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.Move(System.String,System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectory.Move(System.String,System.String)"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.Directory.CreateDirectory(System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectory.CreateDirectory(System.String)"/>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Directory.DirectoryProcessor">
+            <inheritdoc cref="T:MusicFolderCleaner.Application.Directory.IDirectoryProcessor" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.DirectoryProcessor.#ctor(MusicFolderCleaner.Application.Directory.IDirectory,MusicFolderCleaner.Application.Directory.IDirectoryValidator)">
+            <summary>
+            Creates a new <see cref="T:MusicFolderCleaner.Application.Directory.DirectoryProcessor" />
+            </summary>
+            <param name="directory">The directory wrapper for file modification.</param>
+            <param name="directoryValidator">The directory validator to ensure the files are the correct format.</param>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.DirectoryProcessor.Process(System.String,System.String,System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectoryProcessor.Process(System.String,System.String,System.String)" />
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Directory.DirectoryValidator">
+            <inheritdoc cref="T:MusicFolderCleaner.Application.Directory.IDirectoryValidator" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.DirectoryValidator.#ctor(MusicFolderCleaner.Application.Directory.IDirectory)">
+            <summary>
+            Creates a new <see cref="T:MusicFolderCleaner.Application.Directory.IDirectoryValidator" />
+            </summary>
+            <param name="directory">The directory validator.</param>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.DirectoryValidator.Validate(System.String,System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Directory.IDirectoryValidator.Validate(System.String,System.String)" />
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Directory.IDirectory">
+            <summary>
+            A wrapper for testing of <see cref="T:System.IO.Directory" />
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectory.GetFiles(System.String,System.String,System.IO.SearchOption)">
+            <inheritdoc cref="M:System.IO.Directory.GetFiles(System.String,System.String,System.IO.SearchOption)" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectory.GetDirectories(System.String)">
+            <inheritdoc cref="M:System.IO.Directory.GetDirectories(System.String)" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectory.Exists(System.String)">
+            <inheritdoc cref="M:System.IO.Directory.Exists(System.String)" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectory.Move(System.String,System.String)">
+            <inheritdoc cref="M:System.IO.Directory.Move(System.String,System.String)" />
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectory.CreateDirectory(System.String)">
+            <summary>
+            Creates a new directory. Instead of returning DirectoryInfo (violating Liskov substitution principle) this will
+            return true or false and the end user can correct an exceptions that come from this call.
+            </summary>
+            <param name="path">The destination of the new directory to be created.</param>
+            <returns>If the creation was successful.</returns>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Directory.IDirectoryProcessor">
+            <summary>
+            Processes the files that are going to be deleted.
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectoryProcessor.Process(System.String,System.String,System.String)">
+            <summary>
+             Looks at all directories from the given directory and deletes the directories that don't correspond to the file
+             Extension.
+            </summary>
+            <param name="fullFilePath">The starting top directory.</param>
+            <param name="fullDestinationPath">the destination for the files that don't match.</param>
+            <param name="fileExtension">The file extension that is going to be deleted.</param>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Directory.IDirectoryValidator">
+            <summary>
+            Validates is the directory contains a certain file extension.
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Directory.IDirectoryValidator.Validate(System.String,System.String)">
+            <summary>
+            Determines if the given directory contains at least one of the given file extensions.
+            </summary>
+            <param name="filePath">The directory that is being checked.</param>
+            <param name="fileExtension">The file extension that is being checked.</param>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Validation.ErrorLogger">
+            <summary>
+            I'm not adding a logging class. If you want a real logger, import and implement <see cref="T:MusicFolderCleaner.Application.Validation.IErrorLogger"/>.
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.ErrorLogger.LogError(System.String)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Validation.IErrorLogger.LogError(System.String)"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.ErrorLogger.LogError(System.Exception)">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Validation.IErrorLogger.LogError(System.Exception)"/>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Validation.IErrorLogger">
+            <summary>
+            A simple logging class.
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.IErrorLogger.LogError(System.String)">
+            <summary>
+            Logs the given error from a string.
+            </summary>
+            <param name="error">The error message.</param>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.IErrorLogger.LogError(System.Exception)">
+            <summary>
+            Logs the given error from an actual exception.
+            </summary>
+            <param name="exception">The exception that was thrown.</param>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Validation.IInputHandler">
+            <summary>
+            Validates that the given input is valid and the application can start.
+            </summary>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.IInputHandler.Validate(System.String[])">
+            <summary>
+            Validates if the input arguments are valid.
+            </summary>
+            <param name="args">The input parameters from the cmd line.</param>
+            <returns>If the application can start.</returns>
+        </member>
+        <member name="T:MusicFolderCleaner.Application.Validation.InputHandler">
+            <inheritdoc cref="T:MusicFolderCleaner.Application.Validation.IInputHandler"/>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.InputHandler.#ctor(MusicFolderCleaner.Application.Validation.IErrorLogger,MusicFolderCleaner.Application.Directory.IDirectory)">
+            <summary>
+            Creates a new instance of <see cref="T:MusicFolderCleaner.Application.Validation.InputHandler"/>.
+            </summary>
+            <param name="errorLogger">The logging library to be used for errors.</param>
+            <param name="directory">The directory class for basic directory modification.</param>
+        </member>
+        <member name="M:MusicFolderCleaner.Application.Validation.InputHandler.Validate(System.String[])">
+            <inheritdoc cref="M:MusicFolderCleaner.Application.Validation.IInputHandler.Validate(System.String[])"/>
+        </member>
+    </members>
+</doc>
